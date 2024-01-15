@@ -8,7 +8,7 @@ export default class Token {
 
     static getJwtToken(payload: any): string {
         return jwt.sign({
-            usuario: payload
+            user: payload
         }, this.seed, { expiresIn: this.expiration });
     }
 

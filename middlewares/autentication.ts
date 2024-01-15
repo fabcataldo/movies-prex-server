@@ -6,7 +6,7 @@ export const tokenVerification = ( req: any, res: Response, next: NextFunction) 
 
     Token.checkToken( userToken )
         .then( (decoded: any) => {
-            req.usuario = decoded.usuario;
+            req.user = decoded.user;
             next();
         })
         .catch( err => {
