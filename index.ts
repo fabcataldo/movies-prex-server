@@ -1,5 +1,5 @@
 import Server from "./classes/server";
-import userRoutes from "./routes/usuario";
+import userRoutes from "./routes/users";
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';

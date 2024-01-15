@@ -2,6 +2,7 @@ import { Router, Request, Response } from "express";
 import { User } from "../models/user.model";
 import bcrypt from 'bcrypt';
 import Token from "../classes/token";
+import { tokenVerification } from "../middlewares/autentication";
 
 const userRoutes = Router();
 
@@ -74,6 +75,14 @@ userRoutes.post('/create', (req: Request, res: Response) => {
             ok: false,
             err
         });
+    });
+});
+
+userRoutes.get('/', [tokenVerification], (req: any, res: Response) => {
+    const user = req.user;
+    res.json({
+        ok: true,
+        user
     });
 });
 
