@@ -2,9 +2,9 @@ import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 const userSchema: Schema<IUser> = new Schema({
-    name: {
+    username: {
         type: String,
-        required: [true, 'The name is mandatory']
+        required: [true, 'The username is mandatory']
     },
     avatar: {
         type: String,
@@ -30,7 +30,7 @@ userSchema.method('comparePassword', function( password: string = ' ' ) : boolea
 })
 
 interface IUser extends Document{
-    name: string;
+    username: string;
     email: string;
     password: string;
     avatar: string;

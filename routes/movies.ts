@@ -5,7 +5,10 @@ import { Movie } from "../models/movie.model";
 const moviesRoutes = Router();
 
 moviesRoutes.get('/', [tokenVerification], async (req: any, res: Response) => {
-    await Movie.find().exec((err, resBD) => {
+
+    await Movie.find()
+
+        .exec((err, resBD) => {
         if(err){
             res.status(400).send(err);
         } else {
