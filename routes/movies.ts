@@ -5,12 +5,13 @@ import { Movie } from "../models/movie.model";
 const moviesRoutes = Router();
 
 moviesRoutes.get('/', [tokenVerification], async (req: any, res: Response) => {
-
     await Movie.find()
-
         .exec((err, resBD) => {
         if(err){
-            res.status(400).send(err);
+            res.status(400).json({
+                ok: false,
+                error: err
+            });
         } else {
             res.status(200).json({
                 ok: true,
@@ -24,7 +25,7 @@ moviesRoutes.patch('/:id', [tokenVerification], async (req: any, res: Response) 
     const body = req.body;
     const id = req.params.id;
 
-    await Movie.findByIdAndUpdate(id, body).exec((err, resBD) => {
+    await Movie.findByIdAndUpdate(id, body, {new: true}).exec((err, resBD) => {
         if(err){
             res.status(400).send(err);
         } else {
@@ -36,11 +37,11 @@ moviesRoutes.patch('/:id', [tokenVerification], async (req: any, res: Response) 
     })
 })
 
-moviesRoutes.post('/create', (req: Request, res: Response) => {
+moviesRoutes.post('/create', [tokenVerification], (req: Request, res: Response) => {
     Movie.create(req.body).then(userDB => {
         res.json({
             ok: true,
-            token: userDB
+            movie: userDB
         })
     }).catch((err: any) => {
         res.json({

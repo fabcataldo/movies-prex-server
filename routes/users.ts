@@ -87,13 +87,16 @@ userRoutes.patch('/:id/avatar', [tokenVerification], async (req: any, res: Respo
     const body = req.body;
     const id = req.params.id;
 
-    await User.findByIdAndUpdate(id, body).exec((err, resBD) => {
+    await User.findByIdAndUpdate(id, body, {new: true}).exec((err, resBD) => {
         if(err){
-            res.status(400).send(err);
+            res.status(400).json({
+                ok: false,
+                error: err
+            });
         } else {
             res.status(200).json({
                 ok: true,
-                movie: resBD
+                user: resBD
             })
         }
     })
